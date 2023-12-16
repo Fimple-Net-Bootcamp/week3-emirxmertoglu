@@ -1,15 +1,13 @@
-﻿namespace VirtualPetCareApi.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace VirtualPetCareApi.Models
 {
     public class HealthStatus
     {
         public int HealthStatusId { get; set; }
         public string Status { get; set; }
-        // Other health status properties
-
-        // Foreign key
         public int PetId { get; set; }
-
-        // Navigation property
+        [ForeignKey("PetId")]
         public Pet Pet { get; set; }
     }
 }
