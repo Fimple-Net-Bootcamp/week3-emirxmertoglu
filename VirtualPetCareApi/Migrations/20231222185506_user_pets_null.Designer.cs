@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualPetCareApi.Data;
@@ -11,9 +12,11 @@ using VirtualPetCareApi.Data;
 namespace VirtualPetCareApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222185506_user_pets_null")]
+    partial class user_pets_null
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace VirtualPetCareApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("PetId")
+                    b.Property<int>("PetId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -57,7 +60,7 @@ namespace VirtualPetCareApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<int?>("PetId")
+                    b.Property<int>("PetId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -80,7 +83,7 @@ namespace VirtualPetCareApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<int?>("PetId")
+                    b.Property<int>("PetId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -136,7 +139,9 @@ namespace VirtualPetCareApi.Migrations
                 {
                     b.HasOne("VirtualPetCareApi.Models.Pet", "Pet")
                         .WithMany("Activities")
-                        .HasForeignKey("PetId");
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pet");
                 });
@@ -145,7 +150,9 @@ namespace VirtualPetCareApi.Migrations
                 {
                     b.HasOne("VirtualPetCareApi.Models.Pet", "Pet")
                         .WithMany()
-                        .HasForeignKey("PetId");
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pet");
                 });
@@ -154,7 +161,9 @@ namespace VirtualPetCareApi.Migrations
                 {
                     b.HasOne("VirtualPetCareApi.Models.Pet", "Pet")
                         .WithOne("HealthStatus")
-                        .HasForeignKey("VirtualPetCareApi.Models.HealthStatus", "PetId");
+                        .HasForeignKey("VirtualPetCareApi.Models.HealthStatus", "PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pet");
                 });

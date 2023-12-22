@@ -1,15 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualPetCareApi.Models
 {
     public class Activity
     {
-        public int ActivityId { get; set; }
-        public string Name { get; set; }
-        
-        public int PetId { get; set; }
-        [ForeignKey("PetId")]
+        [Key]
+        public int Id { get; set; }
 
-        public Pet Pet { get; set; }
+        [Required]
+        public required string Name { get; set; }
+
+        [ForeignKey("PetId")]
+        public int? PetId { get; set; }
+        public Pet? Pet { get; set; }
     }
 }

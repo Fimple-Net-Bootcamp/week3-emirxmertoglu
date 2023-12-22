@@ -16,21 +16,21 @@ namespace VirtualPetCareApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser([FromBody] User user)
+        public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             if (user == null)
                 return BadRequest();
 
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return CreatedAtAction(nameof(GetUserById), new { userId = user.Id }, user);
         }
 
         [HttpGet("{userId}")]
         public IActionResult GetUserById(int userId)
         {
-            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
                 return NotFound();

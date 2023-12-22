@@ -1,13 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualPetCareApi.Models
 {
     public class HealthStatus
     {
-        public int HealthStatusId { get; set; }
-        public string Status { get; set; }
-        public int PetId { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public required string Name { get; set; }
+
+
         [ForeignKey("PetId")]
-        public Pet Pet { get; set; }
+        public int? PetId { get; set; }
+        public Pet? Pet { get; set; }
     }
 }

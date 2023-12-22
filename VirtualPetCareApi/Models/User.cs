@@ -1,9 +1,16 @@
-﻿namespace VirtualPetCareApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VirtualPetCareApi.Models
 {
     public class User
     {
-        public int UserId { get; set; }
-        public string UserName { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public required string Name { get; set; }
+
         public ICollection<Pet>? Pets { get; set; }
     }
 }
